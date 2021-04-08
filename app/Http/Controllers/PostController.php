@@ -52,6 +52,7 @@ class PostController extends Controller
     }
     public function edit($id)
     {
+        $this->authorize('view',$post);
         $post = Post::find($id);
         return view ('admin/editpost',['post'=>$post]);
     }
@@ -65,6 +66,7 @@ class PostController extends Controller
         $post = Post::find($request->id);   
         $post->title = $request->title;
         $post->body= $request->body;
+        $this->authorize('update');
         $post->save();
         $request->session()->flash('message','Post has been Updated..');
         return redirect('adminviewpost');

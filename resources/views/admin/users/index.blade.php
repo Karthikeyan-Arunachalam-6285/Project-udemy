@@ -71,10 +71,11 @@
         <div class="modal-body">Select "Delete" below if you are ready to Delete record.</div>
           <div class="modal-footer">
             <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+            
             <form action="{{('/admin/users/index')}}/{{$user->id}}" method="post">
               @csrf
               <button class="btn btn-danger">Delete</button>
-        
+          
              </form>
     @endsection
     @section('scripts')

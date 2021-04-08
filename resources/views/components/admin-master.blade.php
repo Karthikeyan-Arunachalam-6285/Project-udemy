@@ -59,8 +59,10 @@
  
  
       <x-admin-sidebar-posts></x-admin-sidebar-posts>
-     
+      @if(auth()->user()->userHasRole('Admin'))
       <x-admin-sidebar-users></x-admin-sidebar-users>
+    @endif
+      
 
      
 

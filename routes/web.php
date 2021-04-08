@@ -34,10 +34,11 @@ use Illuminate\Support\Facades\Route;
  
 Auth::routes();
 
-Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/post/{post}', [App\Http\Controllers\PostController::class, 'show'])->name('post');
+
 
 Route::middleware('auth')->group(function(){
+    Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/post/{post}', [App\Http\Controllers\PostController::class, 'show'])->name('post');
     
     Route::get('/admin', [App\Http\Controllers\AdminsController::class, 'index'])->name('admin.index');
 
@@ -66,8 +67,12 @@ Route::middleware('auth')->group(function(){
 });
  
  
-// Route::middleware('role:admin')->group(function(){
-//     Route::get('/admin/users', [App\Http\Controllers\UserController::class , 'index'])->name('admin-users');
- 
+Route::middleware(['role:admin','auth'])->group(function(){
+    Route::get('/admin/users', [App\Http\Controllers\UserController::class , 'index'])->name('admin-users');
+    Route::put('/admin/user/profile', [App\Http\Controllers\UserController::class , 'update'])->name('update-userprofile');
 
-// });
+});
+Route::middleware(['role:admin','auth'])->group(function(){
+    Route::get('/user-profile/{user}', [App\Http\Controllers\UserController::class , 'showUsers'])->name('user-profile');
+
+ });
